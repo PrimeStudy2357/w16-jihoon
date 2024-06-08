@@ -1,9 +1,13 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 
+const { PrismaClient } = require("@prisma/client");
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get("/", async function (req, res, next) {
+  const prisma = new PrismaClient();
+  const pints = await prisma.pint.findMany();
+  res.render("index", { title: "Pints!", pints: pints });
 });
 
 module.exports = router;

@@ -1,11 +1,67 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <h1>📌Pint!!</h1>
+  <div>
+    <div>
+      Pints from server:
+    </div>
+    <table class="pint-table">
+      <% if(!locals.pints) { %>
+      <div>No pints yet...</div>
+      <% } else { %>
+      <tr class="pint-table-head">
+        <td>#</td>
+        <td>Name</td>
+        <td>Rule</td>
+        <td>URL</td>
+        <td>CreatedAt</td>
+      </tr>
+      <% for (const [idx, pint] of pints.entries()) { %>
+      <tr class="pint-slot">
+        <td><%= idx %></td>
+        <td><%= pint.name %></td>
+        <td><%= pint.rule %></td>
+        <td><%= pint.url %></td>
+        <td><%= pint.createdAt %></td>
+        <td>
+          <form action="/deletePint" method="POST"><button type="submit" name="name" value="<%= pint.name %>">Del</button></form>
+        </td>
+      </tr>
+      <% }%>
+      <% }%>
+    </table>
+  </div>
+  <div>
+    <div>New Pint</div>
+    <form action="/" method="POST">
+      <table>
+        <tr>
+          <td>Name</td>
+          <td>Rule</td>
+          <td>URL</td>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" name="name" required />
+          </td>
+          <td>
+            <input type="text" name="rule" required />
+          </td>
+          <td>
+            <input type="text" name="url" required />
+          </td>
+        </tr>
+      </table>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</body>
+
 </html>
