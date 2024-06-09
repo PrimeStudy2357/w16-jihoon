@@ -16,6 +16,13 @@ router.get("/", async function (req, res, next) {
 
 /** POST new pint */
 router.post("/", async function (req, res, next) {
+  const reqBody = req.body;
+
+  if (reqBody.name === "" || reqBody.rule === "" || reqBody.url === "") {
+    res.status(400).send("Bad request");
+    return;
+  }
+
   const result = await addNewPint({
     name: req.body.name,
     rule: req.body.rule,
